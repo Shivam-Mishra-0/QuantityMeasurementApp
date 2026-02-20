@@ -1,1 +1,1 @@
-# QuantityMeasurementApp
+# Feature/UC1-FeetEquality
