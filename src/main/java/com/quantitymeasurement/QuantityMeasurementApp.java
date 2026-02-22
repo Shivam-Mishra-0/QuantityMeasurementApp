@@ -3,7 +3,7 @@ package com.quantitymeasurement;
 
 import java.util.Scanner;
 
-public class QuantityMeasurementApp {
+public class QuantityMeasurementApp { 
 
 	public static void main(String[] args) {
 		Scanner sc=new Scanner(System.in);
