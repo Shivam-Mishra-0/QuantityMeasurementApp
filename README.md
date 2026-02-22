@@ -1,1 +1,1 @@
-# Feature/UC1-FeetEquality
+# Feature/UC2-FeetEquality
