@@ -1,8 +1,8 @@
 
 package com.quantitymeasurement;
 
-import static org.junit.Assert.assertThrows;
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
+//import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
 
