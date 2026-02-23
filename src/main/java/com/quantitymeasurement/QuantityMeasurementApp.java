@@ -39,6 +39,14 @@ public class QuantityMeasurementApp {
 	    return sum;
 	}
 	
+	public static Length demonstrateLengthAddition(Length length1, Length length2, Length.LengthUnit targetUnit) {
+	    Length sum = length1.add(length2, targetUnit);
+	    System.out.println("   " + length1 + " + " + length2 + " in " + targetUnit + 
+	    		"\n    = " + sum);
+	    System.out.println("|-----------------------------------------------------|");
+        return sum;
+    }
+	
 	public static void main(String[] args) {
 		System.out.println("|-----------------------------------------------------|");
 		demonstrateLengthComparison(1.0, Length.LengthUnit.FEET, 12.0, Length.LengthUnit.INCHES);
@@ -51,7 +59,6 @@ public class QuantityMeasurementApp {
 		demonstrateLengthConversion(3.0, Length.LengthUnit.YARDS, Length.LengthUnit.FEET); 
 		demonstrateLengthConversion(36.0, Length.LengthUnit.INCHES, Length.LengthUnit.YARDS); 
 		demonstrateLengthConversion(30.48, Length.LengthUnit.CENTIMETERS, Length.LengthUnit.FEET); 
-		
 		demonstrateLengthConversion(new Length(-1.0, Length.LengthUnit.FEET), Length.LengthUnit.INCHES);
 
 		demonstrateLengthAddition(
@@ -82,6 +89,54 @@ public class QuantityMeasurementApp {
 		demonstrateLengthAddition(
 			new Length(5.0, Length.LengthUnit.FEET),
 			new Length(-2.0, Length.LengthUnit.FEET)
+		);
+		
+		demonstrateLengthAddition(
+			 new Length(1.0, Length.LengthUnit.FEET),
+			 new Length(12.0, Length.LengthUnit.INCHES),
+			 Length.LengthUnit.FEET
+		);
+			
+		demonstrateLengthAddition(
+			new Length(1.0, Length.LengthUnit.FEET),                                  
+			new Length(12.0, Length.LengthUnit.INCHES),
+			Length.LengthUnit.INCHES
+		);
+			
+		demonstrateLengthAddition(
+			new Length(1.0, Length.LengthUnit.FEET),
+			new Length(12.0, Length.LengthUnit.INCHES),
+			Length.LengthUnit.YARDS
+		);
+			
+		demonstrateLengthAddition(
+		    new Length(1.0, Length.LengthUnit.YARDS),
+		    new Length(3.0, Length.LengthUnit.FEET),
+		    Length.LengthUnit.YARDS
+		); 
+			
+		demonstrateLengthAddition(
+			new Length(36.0, Length.LengthUnit.INCHES),
+			new Length(1.0, Length.LengthUnit.YARDS),
+			Length.LengthUnit.FEET
+		);
+			
+		demonstrateLengthAddition(
+			new Length(2.54, Length.LengthUnit.CENTIMETERS),
+			new Length(1.0, Length.LengthUnit.INCHES),
+			Length.LengthUnit.CENTIMETERS
+		);
+			
+		demonstrateLengthAddition(
+			new Length(5.0, Length.LengthUnit.FEET),
+			new Length(0.0, Length.LengthUnit.INCHES),
+			Length.LengthUnit.YARDS
+		);
+			
+		demonstrateLengthAddition(
+			new Length(5.0, Length.LengthUnit.FEET),
+			new Length(-2.0, Length.LengthUnit.FEET),
+			Length.LengthUnit.INCHES
 		);
 	}
 }
