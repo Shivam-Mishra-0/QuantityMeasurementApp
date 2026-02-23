@@ -30,7 +30,11 @@
 
 - 🧩 **UC5 – Unit-to-Unit Conversion :**
   - Introduces explicit conversion operations between supported length units using centralized enum conversion factors.
-  - Extends the `Length` API to convert measurements across units while preserving mathematical equivalence and precision.   
+  - Extends the `Length` API to convert measurements across units while preserving mathematical equivalence and precision.
+
+- 🧩 **UC6 – Length Addition Operation :**
+  - Introduces addition between length measurements with automatic unit normalization and conversion.
+  - Returns a new immutable `Length` result expressed in the unit of the first operand while preserving mathematical accuracy.
 
 ### 🧰 Tech Stack
 
