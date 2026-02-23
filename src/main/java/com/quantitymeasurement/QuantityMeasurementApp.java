@@ -1,43 +1,33 @@
 
 package com.quantitymeasurement;
 
-import java.util.Scanner;
+public class QuantityMeasurementApp {
 
-public class QuantityMeasurementApp { 
+	public static boolean demonstrateLengthEquality(Length l1, Length l2) {
+		return l1.equals(l2);
+	}
+
+	public static void demonstrateFeetEquality() {
+		Length feet1 = new Length(1.0, Length.LengthUnit.FEET);
+		Length feet2 = new Length(1.0, Length.LengthUnit.FEET);
+		System.out.println("Feet equality: " + demonstrateLengthEquality(feet1, feet2));
+	}
+
+	public static void demonstrateInchesEquality() {
+		Length inch1 = new Length(1.0, Length.LengthUnit.INCHES);
+		Length inch2 = new Length(1.0, Length.LengthUnit.INCHES);
+		System.out.println("Inches equality: " + demonstrateLengthEquality(inch1, inch2));
+	}
+
+	public static void demonstrateFeetInchesComparison() {
+		Length feet1 = new Length(1.0, Length.LengthUnit.FEET);
+		Length inch12 = new Length(12.0, Length.LengthUnit.INCHES);
+		System.out.println("Feet vs Inches equality: " + demonstrateLengthEquality(feet1, inch12));
+	}
 
 	public static void main(String[] args) {
-		Scanner sc=new Scanner(System.in);
-		
-		// Feet Measurement
-		System.out.println("Enter First Entry (Feet) : ");
-		double inputOne = sc.nextDouble();
-		System.out.println("Enter Second Entry (Feet) : ");
-		double inputTwo = sc.nextDouble();
-		Feet f1 = new Feet(inputOne);
-        Feet f2 = new Feet(inputTwo);
-        System.out.println("Are equal? " + f1.equals(f2));
-        
-        // Inches Measurement 
-        System.out.println("Enter First Entry (Inch) : ");
-        double inputOneInch = sc.nextDouble();
-        System.out.println("Enter Second Entry (Inch) : ");
-        double inputTwoInch = sc.nextDouble();
-        Inches i1 = new Inches(inputOneInch);
-        Inches i2 = new Inches(inputTwoInch);
-        System.out.println("Are equal? " + i1.equals(i2));
-        
-        
-        //  Generic Length
-        QuantityLength q1 = new QuantityLength(1.0, LengthUnit.FEET);
-        QuantityLength q2 = new QuantityLength(12.0, LengthUnit.INCH);
-
-        System.out.println("Comparing: " + q1 + " and " + q2);
-        System.out.println("Equal: " + q1.equals(q2));
-
-        QuantityLength q3 = new QuantityLength(1.0, LengthUnit.INCH);
-        QuantityLength q4 = new QuantityLength(1.0, LengthUnit.INCH);
-        
-        System.out.println("Comparing: " + q3 + " and " + q4);
-        System.out.println("Equal: " + q3.equals(q4));
+		demonstrateFeetEquality();
+		demonstrateInchesEquality();
+		demonstrateFeetInchesComparison();
 	}
 }
