@@ -44,6 +44,10 @@
   - Extracts `LengthUnit` into a standalone enum responsible for all unit conversion logic.
   - Improves architectural separation by delegating conversions to units, reducing coupling and enabling scalable support for future measurement categories.
 
+- 🧩 **UC9 – Weight Measurement Support :**
+  - Introduces a weight measurement category with `Weight` and `WeightUnit` supporting kilograms, grams, and pounds.
+  - Enables equality, conversion, and addition operations for weight while preserving strict separation from length measurements and stabilizing the shared measurement architecture.
+
 ### 🧰 Tech Stack
 
 - **Java 17+** — core language and application development  
@@ -77,7 +81,9 @@
   │   │               └── 📁 quantitymeasurement
   │   │                   ├── 📄 QuantityMeasurementApp.java
   │   │                   ├── 📄 Length.java
-  │   │                   └── 📄 LengthUnit.java
+  │   │                   ├── 📄 LengthUnit.java
+  │   │                   ├── 📄 Weight.java
+  │   │                   └── 📄 WeightUnit.java
   │   │
   │   └── 📁 test
   │       └── 📁 java
