@@ -1,4 +1,5 @@
-# 📏 QuantityMeasurementApp 
+
+# 📏 QuantityMeasurementApp
 
 > A Java application developed using Test-Driven Development (TDD) to progressively design and refine a quantity measurement system. The project emphasizes incremental development, clean object-oriented design, and continuous refactoring to build a flexible and maintainable domain model over time.
 
@@ -22,7 +23,7 @@
 - 🧩 **UC3 – Generic Length :**
   - Refactors unit-specific classes into a unified `Length` abstraction using a `LengthUnit` enum.
   - Eliminates duplicated logic by applying the DRY principle while enabling cross-unit equality comparison.
- 
+
 - 🧩 **UC4 – Extended Unit Support :**
   - Adds Yards and Centimeters to the `LengthUnit` enum with appropriate conversion factors.
   - Demonstrates scalability of the generic design by enabling seamless cross-unit equality without introducing new classes.
@@ -34,10 +35,14 @@
 - 🧩 **UC6 – Length Addition Operation :**
   - Introduces addition between length measurements with automatic unit normalization and conversion.
   - Returns a new immutable `Length` result expressed in the unit of the first operand while preserving mathematical accuracy.
- 
+
 - 🧩 **UC7 – Addition with Target Unit Specification :**
   - Extends length addition to allow explicit specification of the result unit independent of operand units.
   - Enhances API flexibility by enabling arithmetic results to be expressed in any supported unit while preserving immutability and precision.
+
+- 🧩 **UC8 – Standalone Unit Refactor :**
+  - Extracts `LengthUnit` into a standalone enum responsible for all unit conversion logic.
+  - Improves architectural separation by delegating conversions to units, reducing coupling and enabling scalable support for future measurement categories.
 
 ### 🧰 Tech Stack
 
@@ -58,6 +63,35 @@
     ```
     mvn test
     ```
+
+### 📂 Project Structure
+
+```
+  📦 QuantityMeasurementApp
+  │
+  ├── 📁 src
+  │   ├── 📁 main
+  │   │   └── 📁 java
+  │   │       └── 📁 com
+  │   │           └── 📁 apps
+  │   │               └── 📁 quantitymeasurement
+  │   │                   ├── 📄 QuantityMeasurementApp.java
+  │   │                   ├── 📄 Length.java
+  │   │                   └── 📄 LengthUnit.java
+  │   │
+  │   └── 📁 test
+  │       └── 📁 java
+  │           └── 📁 com
+  │               └── 📁 apps
+  │                   └── 📁 quantitymeasurement
+  │                       └── 📄 QuantityMeasurementAppTest.java
+  │
+  ├── ⚙️ pom.xml
+  ├── 🚫 .gitignore
+  ├── 📜 LICENSE
+  └── 📘 README.md
+```
+
 ### ⚙️ Development Approach
 
  > This project follows an incremental **Test-Driven Development (TDD)** workflow:
@@ -67,3 +101,18 @@
 - Each Use Case introduces new functionality in small, controlled steps.
 - Existing behaviour is preserved through continuous refactoring.
 - Design evolves toward clean, maintainable, and well-tested software.
+
+### 📄 License
+
+> This project is licensed under the MIT License.
+
+### 👨‍💻 Author
+
+**Abhishek Puri Goswami**  
+_Java developer focused on clean design, object-oriented programming, and incremental software Test-Driven Development._
+
+---
+
+<div align="center">
+✨ Incrementally developed using Test-Driven Development and continuous refactoring.
+</div>
