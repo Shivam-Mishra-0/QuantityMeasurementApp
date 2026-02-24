@@ -30,6 +30,32 @@ public class QuantityMeasurementApp {
 	
 	// Main method
 	public static void main(String[] args) {
+		demonstrateEquality(new Quantity<>(1.0, VolumeUnit.LITRE), new Quantity<>(1000.0, VolumeUnit.MILLILITRE));
+		System.out.println("|--------------------------------------------------------------|");
+        demonstrateEquality(new Quantity<>(3.78541, VolumeUnit.LITRE), new Quantity<>(1.0, VolumeUnit.GALLON));
+        System.out.println("|--------------------------------------------------------------|");
+        demonstrateConversion(new Quantity<>(1.0, VolumeUnit.LITRE), VolumeUnit.MILLILITRE);
+        System.out.println("|--------------------------------------------------------------|");
+        demonstrateConversion(new Quantity<>(1.0, VolumeUnit.GALLON), VolumeUnit.LITRE);
+        System.out.println("|--------------------------------------------------------------|");
+        demonstrateConversion(new Quantity<>(1000.0, VolumeUnit.MILLILITRE), VolumeUnit.GALLON);
+        System.out.println("|--------------------------------------------------------------|");
+
+        demonstrateAddition(new Quantity<>(1.0, VolumeUnit.LITRE), new Quantity<>(1000.0, VolumeUnit.MILLILITRE));
+        System.out.println("|--------------------------------------------------------------|");
+        demonstrateAddition(new Quantity<>(1.0, VolumeUnit.LITRE), new Quantity<>(1.0, VolumeUnit.GALLON), VolumeUnit.MILLILITRE);
+        System.out.println("|--------------------------------------------------------------|");
+        demonstrateAddition(new Quantity<>(1000.0, VolumeUnit.MILLILITRE), new Quantity<>(1.0, VolumeUnit.GALLON), VolumeUnit.GALLON);
+        System.out.println("|--------------------------------------------------------------|");
+        
+        System.out.println("Volume vs Length equality: " + new Quantity<>(1.0, VolumeUnit.LITRE).equals(new Quantity<>(1.0, LengthUnit.FEET)));
+        System.out.println("|--------------------------------------------------------------|");
+        System.out.println("Volume vs Weight equality: " + new Quantity<>(1.0, VolumeUnit.LITRE).equals(new Quantity<>(1.0, WeightUnit.KILOGRAM)));
+        System.out.println("|--------------------------------------------------------------|");
+        System.out.println("Weight vs Length equality: " + new Quantity<>(1.0, WeightUnit.KILOGRAM).equals(new Quantity<>(1.0, LengthUnit.FEET)));
+        System.out.println("|--------------------------------------------------------------|");
+        
+        
 		demonstrateEquality(new Quantity<>(1.0, WeightUnit.KILOGRAM), new Quantity<>(1000.0, WeightUnit.GRAM));
 		System.out.println("|--------------------------------------------------------------|");
 		demonstrateEquality(new Quantity<>(2.204624, WeightUnit.POUND), new Quantity<>(1.0, WeightUnit.KILOGRAM));
