@@ -48,6 +48,10 @@
   - Introduces a weight measurement category with `Weight` and `WeightUnit` supporting kilograms, grams, and pounds.
   - Enables equality, conversion, and addition operations for weight while preserving strict separation from length measurements and stabilizing the shared measurement architecture.
 
+- 🧩 **UC10 – Generic Quantity Architecture :**
+  - Introduces a generic `Quantity<U extends IMeasurable>` model enabling multiple measurement categories through a shared abstraction.
+  - Eliminates category-specific duplication by unifying equality, conversion, and addition logic into a single scalable architecture.
+
 ### 🧰 Tech Stack
 
 - **Java 17+** — core language and application development  
@@ -79,18 +83,24 @@
   │   │       └── 📁 com
   │   │           └── 📁 apps
   │   │               └── 📁 quantitymeasurement
-  │   │                   ├── 📄 QuantityMeasurementApp.java
-  │   │                   ├── 📄 Length.java
+  │   │                   ├── 📄 IMeasurable.java
+  │   │                   ├── 📄 Quantity.java
   │   │                   ├── 📄 LengthUnit.java
-  │   │                   ├── 📄 Weight.java
-  │   │                   └── 📄 WeightUnit.java
+  │   │                   ├── 📄 WeightUnit.java
+  │   │                   └── 📄 QuantityMeasurementApp.java
   │   │
   │   └── 📁 test
   │       └── 📁 java
   │           └── 📁 com
   │               └── 📁 apps
   │                   └── 📁 quantitymeasurement
-  │                       └── 📄 QuantityMeasurementAppTest.java
+  │                       ├── 📄 ArchitecturalTest.java
+  │                       ├── 📄 BackwardCompatibilityTest.java
+  │                       ├── 📄 ConceptualValidationTest.java
+  │                       ├── 📄 QuantityAdditionTest.java
+  │                       ├── 📄 QuantityConversionTest.java
+  │                       ├── 📄 QuantityEqualityTest.java
+  │                       └── 📄 WeightQuantityTest.java
   │
   ├── ⚙️ pom.xml
   ├── 🚫 .gitignore
