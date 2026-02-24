@@ -5,7 +5,7 @@
 ### 📖 Overview
 
 - Modular Java project focused on modelling multi-category quantity measurements (length, weight, and volume) with full arithmetic and conversion support.
-- Organized around incremental Use Cases to evolve the domain design.
+- Organized around incremental Use Cases evolving from simple equality checks to a scalable, capability-aware measurement architecture.
 - Emphasizes clarity, consistency, and maintainable structure as the system grows.
 
 ### ✅ Implemented Features
@@ -63,6 +63,13 @@
   - Refactors addition, subtraction, and division to use a centralized arithmetic helper, eliminating duplicated validation and conversion logic.
   - Improves maintainability and scalability while preserving all existing behaviour and public APIs.
 
+- 🧩 **UC14 – Temperature Measurement (Selective Arithmetic Support) :**
+  - Introduces temperature measurements using `TemperatureUnit` integrated into the generic `Quantity<U>` architecture.
+  - Supports equality comparison and unit conversion across Celsius, Fahrenheit, and Kelvin using non-linear conversion formulas.
+  - Refactors `IMeasurable` with default capability validation to allow category-specific operation support.
+  - Prevents unsupported arithmetic operations (addition, subtraction, division) through explicit validation and meaningful exceptions.
+  - Demonstrates Interface Segregation and capability-based design while preserving backward compatibility for length, weight, and volume.
+
 ### 🧰 Tech Stack
 
 - **Java 17+** — core language and application development  
@@ -99,6 +106,8 @@
   │   │                   ├── 📄 LengthUnit.java
   │   │                   ├── 📄 WeightUnit.java
   │   │                   ├── 📄 VolumeUnit.java
+  │   │                   ├── 📄 TemperatureUnit.java
+  │   │                   ├── 📄 SupportsArithmetic.java
   │   │                   └── 📄 QuantityMeasurementApp.java
   │   │
   │   └── 📁 test
@@ -114,6 +123,7 @@
   │                       ├── 📄 QuantityArithmeticTest.java
   │                       ├── 📄 QuantityConversionTest.java
   │                       ├── 📄 QuantityEqualityTest.java
+  │                       ├── 📄 TemperatureQuantityTest.java
   │                       ├── 📄 WeightQuantityTest.java
   │                       └── 📄 VolumeQuantityTest.java
   │
@@ -132,6 +142,7 @@
 - Each Use Case introduces new functionality in small, controlled steps.
 - Existing behaviour is preserved through continuous refactoring.
 - Design evolves toward clean, maintainable, and well-tested software.
+- Later use cases introduce capability-based behavior where different measurement categories support different operations safely.
 
 ### 📄 License
 
