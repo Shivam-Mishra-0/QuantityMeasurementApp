@@ -1,11 +1,10 @@
-
 # 📏 QuantityMeasurementApp
 
 > A Java application developed using Test-Driven Development (TDD) to progressively design and refine a quantity measurement system. The project emphasizes incremental development, clean object-oriented design, and continuous refactoring to build a flexible and maintainable domain model over time.
 
 ### 📖 Overview
 
-- Modular Java project focused on modelling quantity measurements.
+- Modular Java project focused on modelling multi-category quantity measurements (length, weight, and volume).
 - Organized around incremental Use Cases to evolve the domain design.
 - Emphasizes clarity, consistency, and maintainable structure as the system grows.
 
@@ -52,6 +51,10 @@
   - Introduces a generic `Quantity<U extends IMeasurable>` model enabling multiple measurement categories through a shared abstraction.
   - Eliminates category-specific duplication by unifying equality, conversion, and addition logic into a single scalable architecture.
 
+- 🧩 **UC11 – Volume Measurement Support :**
+  - Adds a new measurement category using `VolumeUnit` (Litre, Millilitre, Gallon) implemented through the generic `Quantity<U>` architecture.
+  - Validates that new measurement types integrate without modifying existing quantity logic, proving true multi-category scalability.
+
 ### 🧰 Tech Stack
 
 - **Java 17+** — core language and application development  
@@ -87,6 +90,7 @@
   │   │                   ├── 📄 Quantity.java
   │   │                   ├── 📄 LengthUnit.java
   │   │                   ├── 📄 WeightUnit.java
+  │   │                   ├── 📄 VolumeUnit.java
   │   │                   └── 📄 QuantityMeasurementApp.java
   │   │
   │   └── 📁 test
@@ -100,7 +104,8 @@
   │                       ├── 📄 QuantityAdditionTest.java
   │                       ├── 📄 QuantityConversionTest.java
   │                       ├── 📄 QuantityEqualityTest.java
-  │                       └── 📄 WeightQuantityTest.java
+  │                       ├── 📄 WeightQuantityTest.java
+  │                       └── 📄 VolumeQuantityTest.java
   │
   ├── ⚙️ pom.xml
   ├── 🚫 .gitignore
