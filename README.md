@@ -1,6 +1,6 @@
 # 📏 QuantityMeasurementApp
 
-> A Java application developed using Test-Driven Development (TDD) to progressively design and refine a quantity measurement system. The project emphasizes incremental development, clean object-oriented design, and continuous refactoring to build a flexible and maintainable domain model over time.
+> A Java application developed using Test-Driven Development (TDD) to progressively design and refine a quantity measurement system. The project emphasizes incremental development, clean object-oriented design, and progressive architectural refactoring to build a flexible and maintainable domain model over time.
 
 ### 📖 Overview
 
@@ -59,6 +59,10 @@
   - Introduces subtraction between quantities with automatic cross-unit normalization while preserving immutability.
   - Adds division support producing a dimensionless ratio, enabling comparative analysis across measurements of the same category.
 
+- 🧩 **UC13 – Centralized Arithmetic Logic (DRY Refactor) :**
+  - Refactors addition, subtraction, and division to use a centralized arithmetic helper, eliminating duplicated validation and conversion logic.
+  - Improves maintainability and scalability while preserving all existing behaviour and public APIs.
+
 ### 🧰 Tech Stack
 
 - **Java 17+** — core language and application development  
@@ -104,6 +108,7 @@
   │                   └── 📁 quantitymeasurement
   │                       ├── 📄 ArchitecturalTest.java
   │                       ├── 📄 BackwardCompatibilityTest.java
+  │                       ├── 📄 CentralizedArithmeticLogicTest.java
   │                       ├── 📄 ConceptualValidationTest.java
   │                       ├── 📄 QuantityAdditionTest.java
   │                       ├── 📄 QuantityArithmeticTest.java
