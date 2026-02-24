@@ -48,6 +48,45 @@ public class QuantityMeasurementApp {
 	
 	// Main method
 	public static void main(String[] args) {
+		System.out.println(new Quantity<>(1.0, LengthUnit.FEET).add(new Quantity<>(12.0, LengthUnit.INCHES)));
+		System.out.println("|--------------------------------------------------------------|");
+		System.out.println(new Quantity<>(10.0, WeightUnit.KILOGRAM).add(new Quantity<>(5000.0, WeightUnit.GRAM), WeightUnit.GRAM));
+		System.out.println("|--------------------------------------------------------------|");
+		
+		
+		System.out.println(new Quantity<>(10.0, LengthUnit.FEET).subtract(new Quantity<>(6.0, LengthUnit.INCHES)));
+		System.out.println("|--------------------------------------------------------------|");
+		System.out.println(new Quantity<>(5.0, VolumeUnit.LITRE).subtract(new Quantity<>(2.0, VolumeUnit.LITRE), VolumeUnit.MILLILITRE));
+		System.out.println("|--------------------------------------------------------------|");
+		
+
+		System.out.println(new Quantity<>(10.0, LengthUnit.FEET).divide(new Quantity<>(2.0, LengthUnit.FEET)));
+		System.out.println("|--------------------------------------------------------------|");
+		System.out.println(new Quantity<>(24.0, LengthUnit.INCHES).divide(new Quantity<>(2.0, LengthUnit.FEET)));
+		System.out.println("|--------------------------------------------------------------|");
+		
+		try {
+			new Quantity<>(10.0, LengthUnit.FEET).add(null);
+	    } catch (Exception e) {
+	    	System.out.println(e.getClass().getSimpleName() + ": " + e.getMessage());
+	    	System.out.println("|--------------------------------------------------------------|");
+	    }
+
+		try {
+	        new Quantity<>(10.0, LengthUnit.FEET).subtract(new Quantity<>(5.0, WeightUnit.KILOGRAM));
+		} catch (Exception e) {
+			System.out.println(e.getClass().getSimpleName() + ": " + e.getMessage());
+			System.out.println("|--------------------------------------------------------------|");
+	    }
+	        
+		try {
+			new Quantity<>(10.0, LengthUnit.FEET).divide(new Quantity<>(0.0, LengthUnit.FEET));
+	    } catch (Exception e) {
+	    	System.out.println(e.getClass().getSimpleName() + ": " + e.getMessage());
+	    	System.out.println("|--------------------------------------------------------------|");
+	    }
+	        
+	        
 		demonstrateSubtraction(new Quantity<>(10.0, LengthUnit.FEET), new Quantity<>(6.0, LengthUnit.INCHES));
 		System.out.println("|--------------------------------------------------------------|");
 		demonstrateSubtraction(new Quantity<>(10.0, WeightUnit.KILOGRAM), new Quantity<>(5000.0, WeightUnit.GRAM));
