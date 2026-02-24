@@ -4,7 +4,7 @@
 
 ### 📖 Overview
 
-- Modular Java project focused on modelling multi-category quantity measurements (length, weight, and volume).
+- Modular Java project focused on modelling multi-category quantity measurements (length, weight, and volume) with full arithmetic and conversion support.
 - Organized around incremental Use Cases to evolve the domain design.
 - Emphasizes clarity, consistency, and maintainable structure as the system grows.
 
@@ -55,6 +55,10 @@
   - Adds a new measurement category using `VolumeUnit` (Litre, Millilitre, Gallon) implemented through the generic `Quantity<U>` architecture.
   - Validates that new measurement types integrate without modifying existing quantity logic, proving true multi-category scalability.
 
+- 🧩 **UC12 – Subtraction and Division Operations :**
+  - Introduces subtraction between quantities with automatic cross-unit normalization while preserving immutability.
+  - Adds division support producing a dimensionless ratio, enabling comparative analysis across measurements of the same category.
+
 ### 🧰 Tech Stack
 
 - **Java 17+** — core language and application development  
@@ -102,6 +106,7 @@
   │                       ├── 📄 BackwardCompatibilityTest.java
   │                       ├── 📄 ConceptualValidationTest.java
   │                       ├── 📄 QuantityAdditionTest.java
+  │                       ├── 📄 QuantityArithmeticTest.java
   │                       ├── 📄 QuantityConversionTest.java
   │                       ├── 📄 QuantityEqualityTest.java
   │                       ├── 📄 WeightQuantityTest.java
