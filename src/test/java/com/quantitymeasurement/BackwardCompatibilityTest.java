@@ -1,6 +1,10 @@
 package com.quantitymeasurement;
 
 import org.junit.jupiter.api.Test;
+
+import com.quantitymeasurement.unit.LengthUnit;
+import com.quantitymeasurement.unit.Quantity;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 public class BackwardCompatibilityTest {

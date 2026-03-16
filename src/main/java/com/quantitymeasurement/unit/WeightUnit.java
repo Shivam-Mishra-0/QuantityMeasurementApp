@@ -1,4 +1,4 @@
-package com.quantitymeasurement;
+package com.quantitymeasurement.unit;
 
 public enum WeightUnit implements IMeasurable {
 	
@@ -33,4 +33,16 @@ public enum WeightUnit implements IMeasurable {
     public String getUnitName() {
         return name();
     }
+
+	@Override
+	public String getMeasurementType() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public IMeasurable getUnitInstance(String unitName) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }
