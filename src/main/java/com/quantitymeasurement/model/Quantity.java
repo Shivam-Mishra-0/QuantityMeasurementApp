@@ -2,8 +2,8 @@ package com.quantitymeasurement.model;
 
 import java.util.function.DoubleBinaryOperator;
 
-import com.quantitymeasurement.unit.units.IMeasurable;
-import com.quantitymeasurement.unit.units.SupportsArithmetic;
+import com.quantitymeasurement.unit.IMeasurable;
+import com.quantitymeasurement.unit.SupportsArithmetic;
 
 /**
  * Quantity

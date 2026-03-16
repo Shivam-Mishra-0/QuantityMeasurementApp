@@ -1,7 +1,14 @@
 package com.quantitymeasurement.model;
 
 
-import com.quantitymeasurement.unit.units.IMeasurable;
+
+import com.quantitymeasurement.unit.IMeasurable;
+import com.quantitymeasurement.unit.LengthUnit;
+import com.quantitymeasurement.unit.TemperatureUnit;
+import com.quantitymeasurement.unit.VolumeUnit;
+import com.quantitymeasurement.unit.WeightUnit;
+
+//import com.quantitymeasurement.dto.QuantityDTO.VolumeUnit;
 
 /**
  * QuantityModel – Generic POJO model class for representing
@@ -93,34 +100,34 @@ public class QuantityModel<U extends IMeasurable> {
 
         System.out.println("---- Testing QuantityModel ----");
 
-        com.quantitymeasurement.units.LengthUnit feet =
-                com.quantitymeasurement.units.LengthUnit.FEET;
+        LengthUnit feet =
+                LengthUnit.FEET;
 
-        QuantityModel<com.quantitymeasurement.units.LengthUnit> length =
+        QuantityModel<LengthUnit> length =
                 new QuantityModel<>(5, feet);
 
         System.out.println("Length Model : " + length);
 
-        com.quantitymeasurement.units.WeightUnit kg =
-                com.quantitymeasurement.units.WeightUnit.KILOGRAM;
+        WeightUnit kg =
+                WeightUnit.KILOGRAM;
 
-        QuantityModel<com.quantitymeasurement.units.WeightUnit> weight =
+        QuantityModel<WeightUnit> weight =
                 new QuantityModel<>(10, kg);
 
         System.out.println("Weight Model : " + weight);
 
-        com.quantitymeasurement.units.VolumeUnit litre =
-                com.quantitymeasurement.units.VolumeUnit.LITRE;
+        VolumeUnit litre =
+                VolumeUnit.LITRE;
 
-        QuantityModel<com.quantitymeasurement.units.VolumeUnit> volume =
+        QuantityModel<VolumeUnit> volume =
                 new QuantityModel<>(3.5, litre);
 
         System.out.println("Volume Model : " + volume);
 
-        com.quantitymeasurement.units.TemperatureUnit celsius =
-                com.quantitymeasurement.units.TemperatureUnit.CELSIUS;
+        TemperatureUnit celsius =
+                TemperatureUnit.CELSIUS;
 
-        QuantityModel<com.quantitymeasurement.units.TemperatureUnit> temp =
+        QuantityModel<TemperatureUnit> temp =
                 new QuantityModel<>(25, celsius);
 
         System.out.println("Temperature Model : " + temp);
