@@ -1,6 +1,8 @@
 package com.quantitymeasurement.entity;
+
 import com.quantitymeasurement.model.QuantityModel;
 import com.quantitymeasurement.unit.IMeasurable;
+import com.quantitymeasurement.unit.LengthUnit;
 
 /**
  * QuantityMeasurementEntity
@@ -16,6 +18,7 @@ import com.quantitymeasurement.unit.IMeasurable;
  * This class is Serializable so it can be saved and loaded
  * by the QuantityMeasurementCacheRepository.
  */
+
 public class QuantityMeasurementEntity implements java.io.Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -224,8 +227,8 @@ public class QuantityMeasurementEntity implements java.io.Serializable {
 
         System.out.println("---- Testing QuantityMeasurementEntity ----");
 
-        IMeasurable feet = com.quantitymeasurement.unit.units.LengthUnit.FEET;
-        IMeasurable inches = com.quantitymeasurement.unit.units.LengthUnit.INCHES;
+        IMeasurable feet = LengthUnit.FEET;
+        IMeasurable inches = LengthUnit.INCHES;
 
         QuantityModel<IMeasurable> q1 =
                 new QuantityModel<>(2, feet);
