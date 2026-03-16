@@ -8,7 +8,12 @@ import com.quantitymeasurement.dto.QuantityDTO.IMeasurableUnit;
 import com.quantitymeasurement.entity.QuantityMeasurementEntity;
 import com.quantitymeasurement.model.QuantityModel;
 import com.quantitymeasurement.repository.IQuantityMeasurementRepository;
-import com.quantitymeasurement.unit.units.IMeasurable;
+
+import com.quantitymeasurement.unit.IMeasurable;
+import com.quantitymeasurement.unit.LengthUnit;
+import com.quantitymeasurement.unit.TemperatureUnit;
+import com.quantitymeasurement.unit.VolumeUnit;
+import com.quantitymeasurement.unit.WeightUnit;
 
 /**
  * QuantityMeasurementServiceImpl
@@ -135,7 +140,7 @@ public class QuantityMeasurementServiceImpl implements IQuantityMeasurementServi
 		double baseValue = source.getUnit().convertToBaseUnit(source.getValue());
 		double result;
 
-		if (source.getUnit() instanceof com.quantitymeasurement.units.TemperatureUnit) {
+		if (source.getUnit() instanceof TemperatureUnit) {
 			result = convertTemperatureUnit(source, target.getUnit());
 		} else {
 			result = target.getUnit().convertFromBaseUnit(baseValue);
@@ -348,16 +353,16 @@ public class QuantityMeasurementServiceImpl implements IQuantityMeasurementServi
 	    switch (measurementType) {
 
 	        case "LengthUnit":
-	            return com.quantitymeasurement.unit.units.LengthUnit.valueOf(unit);
+	            return LengthUnit.valueOf(unit);
 
 	        case "WeightUnit":
-	            return com.quantitymeasurement.unit.units.WeightUnit.valueOf(unit);
+	            return WeightUnit.valueOf(unit);
 
 	        case "VolumeUnit":
-	            return com.quantitymeasurement.unit.units.VolumeUnit.valueOf(unit);
+	            return VolumeUnit.valueOf(unit);
 
 	        case "TemperatureUnit":
-	            return com.quantitymeasurement.unit.units.TemperatureUnit.valueOf(unit);
+	            return TemperatureUnit.valueOf(unit);
 
 	        default:
 	            throw new IllegalArgumentException(
