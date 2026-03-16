@@ -224,22 +224,22 @@ public class QuantityMeasurementCacheRepository implements IQuantityMeasurementR
         System.out.println("Initial cached entities: "
                 + repo.getAllMeasurements().size());
 
-        com.quantitymeasurement.units.IMeasurable feet =
+        com.quantitymeasurement.unit.IMeasurable feet =
                 com.quantitymeasurement.unit.LengthUnit.FEET;
 
-        com.quantitymeasurement.units.IMeasurable inches =
+        com.quantitymeasurement.unit.IMeasurable inches =
                 com.quantitymeasurement.unit.LengthUnit.INCHES;
 
         com.quantitymeasurement.model.QuantityModel<
-                com.quantitymeasurement.units.IMeasurable> q1 =
+                com.quantitymeasurement.unit.IMeasurable> q1 =
                 new com.quantitymeasurement.model.QuantityModel<>(2, feet);
 
         com.quantitymeasurement.model.QuantityModel<
-                com.quantitymeasurement.units.IMeasurable> q2 =
+                com.quantitymeasurement.unit.IMeasurable> q2 =
                 new com.quantitymeasurement.model.QuantityModel<>(24, inches);
 
         com.quantitymeasurement.model.QuantityModel<
-                com.quantitymeasurement.units.IMeasurable> result =
+                com.quantitymeasurement.unit.IMeasurable> result =
                 new com.quantitymeasurement.model.QuantityModel<>(4, feet);
 
         com.quantitymeasurement.entity.QuantityMeasurementEntity entity =
