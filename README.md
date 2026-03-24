@@ -71,6 +71,12 @@
   - Prevents unsupported arithmetic operations (addition, subtraction, division) through explicit validation and meaningful exceptions.
   - Demonstrates Interface Segregation and capability-based design while preserving backward compatibility for length, weight, and volume.
 
+- 🧩 **UC15 – N-Tier Architecture  ( Refactor ) :**
+
+- 🧩 **UC16 – Database Integration JDBC :**
+ 
+- 🧩 **UC17 – SpringBoot REST JPA Integration :**
+
 ### 🧰 Tech Stack
 
 - **Java 17+** — core language and application development  
