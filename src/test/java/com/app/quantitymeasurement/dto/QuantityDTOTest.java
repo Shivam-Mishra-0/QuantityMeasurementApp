@@ -1,12 +1,27 @@
-package com.app.quantitymeasurement.model;
+package com.app.quantitymeasurement.dto;
 
 import org.junit.jupiter.api.Test;
 
-import com.app.quantitymeasurement.dto.QuantityDTO;
+import com.app.quantitymeasurement.dto.response.QuantityDTO;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+/**
+ * QuantityDTOTest
+ *
+ * Tests the QuantityDTO data transfer object:
+ * - Enum-based constructor populates value, unit, and measurementType correctly
+ * - String-based constructor stores raw values as-is
+ * - Getters return the stored values
+ * - toString produces the expected format
+ * - Inner unit enums expose correct names and measurement types
+ * - IMeasurableUnit contract is satisfied by all inner enums
+ */
 public class QuantityDTOTest {
+
+    // =========================================================================
+    // ENUM-BASED CONSTRUCTOR — LengthUnit
+    // =========================================================================
 
     @Test
     public void testConstructor_LengthUnit_Feet_SetsAllFields() {
@@ -38,6 +53,10 @@ public class QuantityDTOTest {
         assertEquals("LengthUnit",  dto.getMeasurementType());
     }
 
+    // =========================================================================
+    // ENUM-BASED CONSTRUCTOR — VolumeUnit
+    // =========================================================================
+
     @Test
     public void testConstructor_VolumeUnit_Litre_SetsAllFields() {
         QuantityDTO dto = new QuantityDTO(3.0, QuantityDTO.VolumeUnit.LITRE);
@@ -59,6 +78,10 @@ public class QuantityDTOTest {
         assertEquals("GALLON",     dto.getUnit());
         assertEquals("VolumeUnit", dto.getMeasurementType());
     }
+
+    // =========================================================================
+    // ENUM-BASED CONSTRUCTOR — WeightUnit
+    // =========================================================================
 
     @Test
     public void testConstructor_WeightUnit_Kilogram_SetsAllFields() {
@@ -82,6 +105,10 @@ public class QuantityDTOTest {
         assertEquals("WeightUnit",  dto.getMeasurementType());
     }
 
+    // =========================================================================
+    // ENUM-BASED CONSTRUCTOR — TemperatureUnit
+    // =========================================================================
+
     @Test
     public void testConstructor_TemperatureUnit_Celsius_SetsAllFields() {
         QuantityDTO dto = new QuantityDTO(25.0, QuantityDTO.TemperatureUnit.CELSIUS);
@@ -104,6 +131,10 @@ public class QuantityDTOTest {
         assertEquals("TemperatureUnit",  dto.getMeasurementType());
     }
 
+    // =========================================================================
+    // STRING-BASED CONSTRUCTOR
+    // =========================================================================
+
     @Test
     public void testConstructor_StringBased_SetsAllFields() {
         QuantityDTO dto = new QuantityDTO(10.0, "FEET", "LengthUnit");
@@ -118,6 +149,10 @@ public class QuantityDTOTest {
         assertEquals("CUSTOM_UNIT", dto.getUnit());
         assertEquals("CustomType",  dto.getMeasurementType());
     }
+
+    // =========================================================================
+    // GETTERS
+    // =========================================================================
 
     @Test
     public void testGetValue_ReturnsStoredValue() {
@@ -135,11 +170,16 @@ public class QuantityDTOTest {
             new QuantityDTO(1.0, QuantityDTO.WeightUnit.KILOGRAM).getMeasurementType());
     }
 
+    // =========================================================================
+    // toString
+    // =========================================================================
+
     @Test
     public void testToString_WholeNumber_NoTrailingZero() {
-        
+        // The regex replace in toString should strip ".0"
         QuantityDTO dto = new QuantityDTO(2.0, QuantityDTO.LengthUnit.FEET);
-
+        // value is a double so Double.toString(2.0) = "2.0" — regex removes .0
+        // depending on implementation; at minimum the unit must appear
         assertTrue(dto.toString().contains("FEET"));
         assertTrue(dto.toString().contains("2"));
     }
@@ -158,6 +198,10 @@ public class QuantityDTOTest {
         assertTrue(s.contains("CELSIUS"));
         assertTrue(s.contains("100"));
     }
+
+    // =========================================================================
+    // INNER ENUM IDENTITY — LengthUnit
+    // =========================================================================
 
     @Test
     public void testLengthUnit_AllConstantsPresent() {
@@ -180,6 +224,9 @@ public class QuantityDTOTest {
         assertEquals("LengthUnit", QuantityDTO.LengthUnit.FEET.getMeasurementType());
     }
 
+    // =========================================================================
+    // INNER ENUM IDENTITY — VolumeUnit
+    // =========================================================================
 
     @Test
     public void testVolumeUnit_AllConstantsPresent() {
@@ -200,6 +247,10 @@ public class QuantityDTOTest {
         assertEquals("VolumeUnit", QuantityDTO.VolumeUnit.LITRE.getMeasurementType());
     }
 
+    // =========================================================================
+    // INNER ENUM IDENTITY — WeightUnit
+    // =========================================================================
+
     @Test
     public void testWeightUnit_AllConstantsPresent() {
         assertDoesNotThrow(() -> QuantityDTO.WeightUnit.valueOf("KILOGRAM"));
@@ -218,6 +269,10 @@ public class QuantityDTOTest {
     public void testWeightUnit_GetMeasurementType() {
         assertEquals("WeightUnit", QuantityDTO.WeightUnit.KILOGRAM.getMeasurementType());
     }
+
+    // =========================================================================
+    // INNER ENUM IDENTITY — TemperatureUnit
+    // =========================================================================
 
     @Test
     public void testTemperatureUnit_AllConstantsPresent() {
@@ -238,6 +293,10 @@ public class QuantityDTOTest {
         assertEquals("TemperatureUnit", QuantityDTO.TemperatureUnit.CELSIUS.getMeasurementType());
     }
 
+    // =========================================================================
+    // IMeasurableUnit contract — all inner enums implement the interface
+    // =========================================================================
+
     @Test
     public void testIMeasurableUnit_LengthUnit_ImplementsInterface() {
         assertTrue(QuantityDTO.LengthUnit.FEET instanceof QuantityDTO.IMeasurableUnit);
@@ -257,6 +316,10 @@ public class QuantityDTOTest {
     public void testIMeasurableUnit_TemperatureUnit_ImplementsInterface() {
         assertTrue(QuantityDTO.TemperatureUnit.CELSIUS instanceof QuantityDTO.IMeasurableUnit);
     }
+
+    // =========================================================================
+    // UC17 — Bean Validation: isUnitValidForMeasurementType
+    // =========================================================================
 
     @Test
     public void testValidation_ValidUnit_LengthFeet_ReturnsTrue() {

@@ -15,9 +15,21 @@ import java.util.Set;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+/**
+ * QuantityArithmeticTest
+ *
+ * Tests arithmetic operations (add, subtract, divide) on Quantity,
+ * covering: same-unit, cross-unit, explicit target unit, immutability,
+ * null/cross-category guards, temperature rejection, internal helper
+ * visibility, ArithmeticOperation enum dispatch, and edge values.
+ */
 public class QuantityArithmeticTest {
 
     private static final double EPSILON = 1e-6;
+
+    // =========================================================================
+    // ADDITION — implicit target (result in first operand's unit)
+    // =========================================================================
 
     @Test
     public void testAdd_SameUnit_FeetPlusFeet() {
@@ -122,6 +134,10 @@ public class QuantityArithmeticTest {
             new Quantity<>(1.0, VolumeUnit.LITRE).add(new Quantity<>(1000.0, VolumeUnit.MILLILITRE))
         );
     }
+
+    // =========================================================================
+    // ADDITION — explicit target unit
+    // =========================================================================
 
     @Test
     public void testAdd_ExplicitTarget_Feet() {
@@ -231,6 +247,10 @@ public class QuantityArithmeticTest {
         );
     }
 
+    // =========================================================================
+    // SUBTRACTION — implicit target
+    // =========================================================================
+
     @Test
     public void testSubtract_SameUnit_FeetMinusFeet() {
         assertEquals(
@@ -337,6 +357,10 @@ public class QuantityArithmeticTest {
         );
     }
 
+    // =========================================================================
+    // SUBTRACTION — explicit target unit
+    // =========================================================================
+
     @Test
     public void testSubtract_ExplicitTarget_Feet() {
         assertEquals(
@@ -360,6 +384,10 @@ public class QuantityArithmeticTest {
             new Quantity<>(5.0, VolumeUnit.LITRE).subtract(new Quantity<>(2.0, VolumeUnit.LITRE), VolumeUnit.MILLILITRE)
         );
     }
+
+    // =========================================================================
+    // DIVISION
+    // =========================================================================
 
     @Test
     public void testDivide_SameUnit_Feet() {
@@ -427,6 +455,10 @@ public class QuantityArithmeticTest {
             new Quantity<>(10.0, LengthUnit.FEET).divide(new Quantity<>(3.0, LengthUnit.FEET)), 1e-12);
     }
 
+    // =========================================================================
+    // IMMUTABILITY — all operations return new objects, original unchanged
+    // =========================================================================
+
     @Test
     public void testImmutability_Add_OriginalUnchanged() {
         Quantity<VolumeUnit> original = new Quantity<>(5.0, VolumeUnit.LITRE);
@@ -457,6 +489,10 @@ public class QuantityArithmeticTest {
         Quantity<LengthUnit> b = new Quantity<>(2.0, LengthUnit.FEET);
         assertEquals(a, a.add(b).subtract(b));
     }
+
+    // =========================================================================
+    // VALIDATION — null, cross-category, null target unit
+    // =========================================================================
 
     @Test
     public void testAdd_NullOperand_Throws() {
@@ -521,6 +557,10 @@ public class QuantityArithmeticTest {
         assertThrows(IllegalArgumentException.class, () -> a.subtract(b, null));
     }
 
+    // =========================================================================
+    // TEMPERATURE — arithmetic must be rejected
+    // =========================================================================
+
     @Test
     public void testTemperature_Add_Throws() {
         Quantity<TemperatureUnit> a = new Quantity<>(100.0, TemperatureUnit.CELSIUS);
@@ -550,6 +590,10 @@ public class QuantityArithmeticTest {
         Quantity<TemperatureUnit> b = new Quantity<>(32.0, TemperatureUnit.FAHRENHEIT);
         assertThrows(UnsupportedOperationException.class, () -> a.add(b));
     }
+
+    // =========================================================================
+    // CHAINING & PERFORMANCE
+    // =========================================================================
 
     @Test
     public void testChain_AddSubtractDivide() {
@@ -603,6 +647,10 @@ public class QuantityArithmeticTest {
         set.add(new Quantity<>(1000.0, VolumeUnit.MILLILITRE));
         assertEquals(1, set.size());
     }
+
+    // =========================================================================
+    // INTERNAL STRUCTURE — ArithmeticOperation enum and helper visibility
+    // =========================================================================
 
     @Test
     public void testArithmeticOperation_Enum_AllConstantsPresent() throws Exception {
@@ -670,7 +718,8 @@ public class QuantityArithmeticTest {
 
     @Test
     public void testValidation_NullGuard_IsConsistentAcrossAllOperations() {
-        
+        // Verifies that null validation is centralized — all three operations
+        // produce the identical error message, proving a shared guard path.
         Quantity<LengthUnit> q   = new Quantity<>(1.0, LengthUnit.FEET);
         String msgAdd = assertThrows(IllegalArgumentException.class, () -> q.add(null)).getMessage();
         String msgSub = assertThrows(IllegalArgumentException.class, () -> q.subtract(null)).getMessage();
@@ -702,6 +751,10 @@ public class QuantityArithmeticTest {
         Quantity<LengthUnit> sumInches = a.add(b, LengthUnit.INCHES);
         assertEquals(sumInches, sumFeet.convertTo(LengthUnit.INCHES));
     }
+
+    // -------------------------------------------------------------------------
+    // Helper
+    // -------------------------------------------------------------------------
 
     private static Class<?> findInnerEnum(Class<?> outer, String enumName) {
         for (Class<?> c : outer.getDeclaredClasses()) {

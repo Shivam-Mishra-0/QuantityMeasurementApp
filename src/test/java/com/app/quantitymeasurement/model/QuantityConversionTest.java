@@ -9,9 +9,21 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+/**
+ * QuantityConversionTest
+ *
+ * Tests the Quantity.convertTo() method across all unit categories.
+ * Covers: directional conversions, round-trips, same-unit, zero/negative
+ * values, null guard, and NaN/Infinity construction guard.
+ *  
+ */
 public class QuantityConversionTest {
 
     private static final double EPSILON = 1e-6;
+
+    // -------------------------------------------------------------------------
+    // Length Conversions
+    // -------------------------------------------------------------------------
 
     @Test
     public void testConversion_FeetToInches() {
@@ -100,6 +112,10 @@ public class QuantityConversionTest {
             () -> new Quantity<>(Double.POSITIVE_INFINITY, LengthUnit.INCHES));
     }
 
+    // -------------------------------------------------------------------------
+    // Weight Conversions
+    // -------------------------------------------------------------------------
+
     @Test
     public void testConversion_PoundToKilogram() {
         Quantity<WeightUnit> result = new Quantity<>(2.204624, WeightUnit.POUND).convertTo(WeightUnit.KILOGRAM);
@@ -125,6 +141,10 @@ public class QuantityConversionTest {
         Quantity<WeightUnit> result = new Quantity<>(5.0, WeightUnit.KILOGRAM).convertTo(WeightUnit.KILOGRAM);
         assertEquals(new Quantity<>(5.0, WeightUnit.KILOGRAM), result);
     }
+
+    // -------------------------------------------------------------------------
+    // Volume Conversions
+    // -------------------------------------------------------------------------
 
     @Test
     public void testConversion_LitreToMillilitre() {
@@ -176,6 +196,10 @@ public class QuantityConversionTest {
         Quantity<VolumeUnit> roundTrip = original.convertTo(VolumeUnit.MILLILITRE).convertTo(VolumeUnit.LITRE);
         assertEquals(original, roundTrip);
     }
+
+    // -------------------------------------------------------------------------
+    // Temperature Conversions
+    // -------------------------------------------------------------------------
 
     @Test
     public void testTemperatureConversion_CelsiusToFahrenheit_0C_Is_32F() {

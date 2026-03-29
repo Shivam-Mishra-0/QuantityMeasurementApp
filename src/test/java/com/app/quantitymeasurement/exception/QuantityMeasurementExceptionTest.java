@@ -4,8 +4,21 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-
+/**
+ * QuantityMeasurementExceptionTest
+ *
+ * Tests the custom exception class:
+ * - Extends RuntimeException (unchecked)
+ * - Message-only constructor stores the message
+ * - Message + cause constructor stores both
+ * - Can be thrown and caught normally
+ * - Cause is accessible via getCause()
+ */
 public class QuantityMeasurementExceptionTest {
+
+    // =========================================================================
+    // CLASS CONTRACT
+    // =========================================================================
 
     @Test
     public void testExtendsRuntimeException() {
@@ -14,14 +27,17 @@ public class QuantityMeasurementExceptionTest {
 
     @Test
     public void testIsUnchecked_ExtendsRuntimeException() {
-        
+        // Verified via class hierarchy - not by instanceof on an instance
         assertTrue(RuntimeException.class.isAssignableFrom(
             QuantityMeasurementException.class));
         assertFalse(
-            
+            // Must not directly extend Exception (which would make it checked)
             QuantityMeasurementException.class.getSuperclass().equals(Exception.class));
     }
 
+    // =========================================================================
+    // MESSAGE-ONLY CONSTRUCTOR
+    // =========================================================================
 
     @Test
     public void testConstructor_Message_StoresMessage() {
@@ -43,6 +59,10 @@ public class QuantityMeasurementExceptionTest {
         assertEquals("", ex.getMessage());
     }
 
+    // =========================================================================
+    // MESSAGE + CAUSE CONSTRUCTOR
+    // =========================================================================
+
     @Test
     public void testConstructor_MessageAndCause_StoresBoth() {
         Throwable cause = new IllegalArgumentException("root cause");
@@ -59,6 +79,10 @@ public class QuantityMeasurementExceptionTest {
             new QuantityMeasurementException("arithmetic error", cause);
         assertEquals("division by zero", ex.getCause().getMessage());
     }
+
+    // =========================================================================
+    // THROW AND CATCH BEHAVIOUR
+    // =========================================================================
 
     @Test
     public void testThrowAndCatch_MessageOnly() {
@@ -81,7 +105,7 @@ public class QuantityMeasurementExceptionTest {
 
     @Test
     public void testCaughtAsRuntimeException() {
-        
+        // Confirms it can be caught as the parent type
         assertThrows(
             RuntimeException.class,
             () -> { throw new QuantityMeasurementException("caught as RuntimeException"); }
