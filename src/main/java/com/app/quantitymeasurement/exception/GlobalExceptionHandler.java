@@ -1,5 +1,7 @@
 package com.app.quantitymeasurement.exception;
 
+import lombok.extern.slf4j.Slf4j;
+
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -11,16 +13,31 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.logging.Logger;
 import java.util.stream.Collectors;
 
-
+/**
+ * GlobalExceptionHandler
+ *
+ * Centralised exception handler for all REST controllers in the application.
+ * {@code @ControllerAdvice} intercepts exceptions thrown by any controller and
+ * returns consistent, structured JSON error responses instead of raw stack traces.
+ */
+@Slf4j
 @ControllerAdvice
 public class GlobalExceptionHandler {
 
-    private static final Logger logger = Logger.getLogger(GlobalExceptionHandler.class.getName());
 
-   
+    /**
+     * Handles Bean Validation failures that arise when a {@code @Valid}-annotated
+     * request body fails its constraints.
+     *
+     * <p>All field-level error messages are collected and joined into a single
+     * {@code message} string so the client receives full feedback in one response.</p>
+     *
+     * @param ex      the validation exception
+     * @param request the current HTTP request (used for the {@code path} field)
+     * @return {@code 400 Bad Request} with a structured validation error body
+     */
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public ResponseEntity<Map<String, Object>> handleMethodArgumentNotValidException(
             MethodArgumentNotValidException ex,
@@ -30,7 +47,7 @@ public class GlobalExceptionHandler {
             .map(FieldError::getDefaultMessage)
             .collect(Collectors.joining("; "));
 
-        logger.warning("Validation failed: " + errorMessage);
+        log.warn("Validation failed: " + errorMessage);
 
         return ResponseEntity.badRequest().body(buildErrorBody(
             HttpStatus.BAD_REQUEST.value(),
@@ -40,13 +57,21 @@ public class GlobalExceptionHandler {
         ));
     }
 
-    
+    /**
+     * Handles {@link QuantityMeasurementException} thrown by the service layer,
+     * for example when two quantities of incompatible types are compared or an
+     * unsupported arithmetic operation is attempted.
+     *
+     * @param ex      the quantity measurement exception
+     * @param request the current HTTP request
+     * @return {@code 400 Bad Request} with a structured error body
+     */
     @ExceptionHandler(QuantityMeasurementException.class)
     public ResponseEntity<Map<String, Object>> handleQuantityException(
             QuantityMeasurementException ex,
             HttpServletRequest request) {
 
-        logger.warning("QuantityMeasurementException: " + ex.getMessage());
+        log.warn("QuantityMeasurementException: " + ex.getMessage());
 
         return ResponseEntity.badRequest().body(buildErrorBody(
             HttpStatus.BAD_REQUEST.value(),
@@ -56,13 +81,20 @@ public class GlobalExceptionHandler {
         ));
     }
 
-    
+    /**
+     * Handles {@link IllegalArgumentException} thrown when an invalid argument
+     * is passed to a service or utility method (e.g., an unrecognised unit name).
+     *
+     * @param ex      the exception
+     * @param request the current HTTP request
+     * @return {@code 400 Bad Request} with a structured error body
+     */
     @ExceptionHandler(IllegalArgumentException.class)
     public ResponseEntity<Map<String, Object>> handleIllegalArgumentException(
             IllegalArgumentException ex,
             HttpServletRequest request) {
 
-        logger.warning("IllegalArgumentException: " + ex.getMessage());
+        log.warn("IllegalArgumentException: " + ex.getMessage());
 
         return ResponseEntity.badRequest().body(buildErrorBody(
             HttpStatus.BAD_REQUEST.value(),
@@ -72,13 +104,21 @@ public class GlobalExceptionHandler {
         ));
     }
 
-    
+    /**
+     * Catch-all handler for any exception not covered by a more specific handler above.
+     * Ensures that unhandled errors always produce a structured response rather than
+     * an empty body or raw stack trace.
+     *
+     * @param ex      the unhandled exception
+     * @param request the current HTTP request
+     * @return {@code 500 Internal Server Error} with a structured error body
+     */
     @ExceptionHandler(Exception.class)
     public ResponseEntity<Map<String, Object>> handleGlobalException(
             Exception ex,
             HttpServletRequest request) {
 
-        logger.severe("Unhandled exception: " + ex.getMessage());
+        log.error("Unhandled exception: " + ex.getMessage());
 
         return ResponseEntity.internalServerError().body(buildErrorBody(
             HttpStatus.INTERNAL_SERVER_ERROR.value(),
@@ -88,7 +128,19 @@ public class GlobalExceptionHandler {
         ));
     }
 
-    
+    // -------------------------------------------------------------------------
+    // Private helpers
+    // -------------------------------------------------------------------------
+
+    /**
+     * Builds the standardised error response map used by all handlers.
+     *
+     * @param status  HTTP status code
+     * @param error   short error category label
+     * @param message detailed error description
+     * @param path    request path that triggered the error
+     * @return map ready to be serialised as the JSON response body
+     */
     private Map<String, Object> buildErrorBody(int status, String error,
                                                String message, String path) {
         Map<String, Object> body = new HashMap<>();
