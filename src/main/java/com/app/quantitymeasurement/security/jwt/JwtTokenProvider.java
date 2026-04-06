@@ -168,10 +168,19 @@ public class JwtTokenProvider {
      * @param token the compact JWT string
      * @return the email address stored in the {@code sub} claim
      */
-    public String getEmailFromToken(String token) {
-        return parseClaims(token).getSubject();
-    }
+//    public String getEmailFromToken(String token) {
+//        return parseClaims(token).getSubject();
+//    }
 
+    public String getEmailFromToken(String token) {
+        try {
+            return parseClaims(token).getSubject();
+        } catch (Exception ex) {
+            log.warn("Could not extract email from token: {}", ex.getMessage());
+            return null;
+        }
+    }
+    
     /**
      * Extracts the {@code roles} custom claim from a valid JWT.
      *
@@ -220,13 +229,13 @@ public class JwtTokenProvider {
             return true;
 
         } catch (io.jsonwebtoken.security.SecurityException | MalformedJwtException ex) {
-            log.warn("Invalid JWT signature: " + ex.getMessage());
+            log.warn("Invalid JWT signature: {}", ex.getMessage());
         } catch (ExpiredJwtException ex) {
-            log.warn("Expired JWT token: " + ex.getMessage());
+            log.warn("Expired JWT token: {}", ex.getMessage());
         } catch (UnsupportedJwtException ex) {
-            log.warn("Unsupported JWT token: " + ex.getMessage());
+            log.warn("Unsupported JWT token: {}", ex.getMessage());
         } catch (IllegalArgumentException ex) {
-            log.warn("JWT claims string is empty: " + ex.getMessage());
+            log.warn("JWT claims string is empty: {}", ex.getMessage());
         }
         return false;
     }
