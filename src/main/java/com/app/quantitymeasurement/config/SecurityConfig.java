@@ -138,10 +138,10 @@ public class SecurityConfig {
              */
             .authorizeHttpRequests(auth -> auth
 
-                /* ---- PUBLIC: auth and OAuth2 ---- */
-        		.requestMatchers("/api/v1/auth/me").authenticated()
-                .requestMatchers("/oauth2/**").permitAll()
-                .requestMatchers("/login/oauth2/**").permitAll()
+//                /* ---- PUBLIC: auth and OAuth2 ---- */
+//        		.requestMatchers("/api/v1/auth/me").authenticated()
+//                .requestMatchers("/oauth2/**").permitAll()
+//                .requestMatchers("/login/oauth2/**").permitAll()
 
                 
                 /* ---- PROTECTED: auth and OAuth2 ---- */
@@ -152,6 +152,7 @@ public class SecurityConfig {
                 		"/oauth2/**",
                 		"/login/oauth2/**"
                 		).permitAll()
+                .requestMatchers("/api/v1/auth/me").authenticated()
 
                 /* ---- PUBLIC: API docs / Swagger UI ---- */
                 .requestMatchers(
