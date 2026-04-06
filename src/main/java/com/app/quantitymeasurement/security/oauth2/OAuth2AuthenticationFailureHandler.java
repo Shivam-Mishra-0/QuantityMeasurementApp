@@ -67,9 +67,10 @@ public class OAuth2AuthenticationFailureHandler extends SimpleUrlAuthenticationF
                 StandardCharsets.UTF_8);
 
         String targetUrl = UriComponentsBuilder.fromUriString(redirectUri)
-                .queryParam("error", encodedError)
-                .build()
-                .toUriString();
+        		.queryParam("error", errorMessage != null ? errorMessage : "Authentication failed")
+        		.encode()
+        		.build()
+        		.toUriString();
 
         getRedirectStrategy().sendRedirect(request, response, targetUrl);
     }
