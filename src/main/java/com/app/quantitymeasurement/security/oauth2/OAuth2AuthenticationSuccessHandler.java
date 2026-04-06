@@ -69,7 +69,14 @@ public class OAuth2AuthenticationSuccessHandler extends SimpleUrlAuthenticationS
          * CustomOAuth2UserService.loadUser() returns a UserPrincipal, so this
          * cast is always safe in the OAuth2 flow.
          */
-        UserPrincipal userPrincipal = (UserPrincipal) authentication.getPrincipal();
+    	
+    	if (!(authentication.getPrincipal() instanceof UserPrincipal userPrincipal)) {
+    	    response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "Unexpected principal type");
+    	    return;
+    	}
+    	
+//    	UserPrincipal userPrincipal 
+        userPrincipal = (UserPrincipal) authentication.getPrincipal();
         User user = userPrincipal.getUser();
 
         /*
